@@ -1,6 +1,7 @@
 const express = require('express');
 const conectarDB = require('./config/db');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 //Se crea el servidor
 const app = express();
@@ -10,7 +11,12 @@ const opcionesCors = {
     optionsSuccessStatus: 200
 }
 
+app.use(bodyParser.json({ limit: "30mb", extendend: true }));
+app.use(bodyParser.urlencoded({ limit: "30mb", extendend: true }));
+
 app.use(cors(opcionesCors));
+app.options('*', cors());  // enable pre-flight
+
 
 //Se conecta a la base de datos.
 conectarDB();
