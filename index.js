@@ -5,15 +5,15 @@ const cors = require('cors');
 //Se crea el servidor
 const app = express();
 
-//Se conecta a la base de datos.
-conectarDB();
-
 const opcionesCors = {
     origin: process.env.FRONTEND_URL,
     optionsSuccessStatus: 200
 }
 
 app.use(cors(opcionesCors));
+
+//Se conecta a la base de datos.
+conectarDB();
 
 //Habilitar la carpeta publica
 app.use(express.static('uploads'));
