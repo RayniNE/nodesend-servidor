@@ -6,7 +6,7 @@ const Enlaces = require('../models/Enlace');
 exports.subirArchivo = async (request, response, next) => {
 
     const configuracionMulter = {
-        limits : { fileSize: request.usuario ? 1024 * 1024 * 100 : 1024 * 1024 * 10},
+        limits: { fileSize: request.usuario ? 1024 * 1024 * 100 : 1024 * 1024 * 10 },
         storage: fileStorage = multer.diskStorage({
             destination: (request, file, cb) => {
                 cb(null, __dirname + '/../uploads')
@@ -17,18 +17,17 @@ exports.subirArchivo = async (request, response, next) => {
                 cb(null, `${shortid.generate()}${extension}`);
             }
         })
-}
+    }
 
-const upload = multer(configuracionMulter).single('archivo');
+    const upload = multer(configuracionMulter).single('archivo');
 
-    // response.json({msg: "Trabajo mmamaguebo"});
-    upload( request, response, async (error) => {
+    upload(request, response, async (error) => {
 
         console.log(request.file);
-        
-        if(!error){
-            response.json({archivo: request.file.filename});
-        } else{
+
+        if (!error) {
+            response.json({ archivo: request.file.filename });
+        } else {
             console.log(error);
             return next();
         }
@@ -40,7 +39,7 @@ const upload = multer(configuracionMulter).single('archivo');
 
 exports.descargarArchivo = async (request, response, next) => {
 
-    const enlace = await Enlaces.findOne({nombre: archivo});
+    const enlace = await Enlaces.findOne({ nombre: archivo });
 
     const archivoDescarga = __dirname + "/../uploads/" + archivo;
     response.download(archivoDescarga);
@@ -49,18 +48,18 @@ exports.descargarArchivo = async (request, response, next) => {
     //Si las descargas son igual a 1 -> Se borra el archivo.
     const { descargas, nombre } = enlace;
     console.log(descargas);
-        if(descargas === 1){
-        
-            request.archivo = nombre;
-    
-            await Enlaces.findOneAndRemove(request.params.url);
-    
-            next();
-    
-        } else{
-            enlace.descargas--;
-            await enlace.save();
-        }
+    if (descargas === 1) {
+
+        request.archivo = nombre;
+
+        await Enlaces.findOneAndRemove(request.params.url);
+
+        next();
+
+    } else {
+        enlace.descargas--;
+        await enlace.save();
+    }
 
 }
 
