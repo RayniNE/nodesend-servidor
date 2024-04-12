@@ -7,7 +7,7 @@ const logger = require("./logger/index.js");
 //Se crea el servidor
 const app = express();
 
-//Protección adecuada contra ataques de falsificación de solicitudes del lado del servidor (SSRF)
+// ! Falsificación de Solicitudes del Lado del Servidor 
 const opcionesCors = {
   origin: process.env.FRONTEND_URL,
   optionsSuccessStatus: 200,
@@ -18,7 +18,7 @@ logger.info(`Opciones de CORS: ${opcionesCors}`);
 app.use(bodyParser.json({ limit: "30mb", extendend: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extendend: true }));
 
-//Protección adecuada contra ataques de falsificación de solicitudes del lado del servidor (SSRF)
+// ! Falsificación de Solicitudes del Lado del Servidor )
 app.use(cors(opcionesCors));
 app.options("*", cors()); // enable pre-flight
 

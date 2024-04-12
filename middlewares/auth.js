@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: "variables.env" });
 
-// Fallas de Identificación y Autenticación
+// ! Fallas de Identificación y Autenticación
 module.exports = (request, response, next) => {
   const authHeader = request.get("Authorization");
 

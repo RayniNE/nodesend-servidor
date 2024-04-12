@@ -1,6 +1,6 @@
 const winston = require("winston");
 
-// Implementación de registros detallados y monitoreo de eventos de seguridad
+// ! Fallas en el Registro y Monitoreo
 const logger = winston.createLogger({
   level: "info",
   format: winston.format.json(),
